@@ -17,10 +17,10 @@ export interface SiteSettings {
 export const DEFAULT_SETTINGS: SiteSettings = {
   brandName: 'Gulora',
   tagline: 'Herbs & Jewels',
-  whatsappNumber: '',
+  whatsappNumber: '923712331745',
   storeEnabled: false,
   showPrices: false,
   currency: 'PKR',
   defaultTheme: 'blush',
-  social: { instagram: '', facebook: '', email: '' },
+  social: { instagram: 'https://www.instagram.com/gulora.herbs.jewels/', facebook: '', email: '' },
 };

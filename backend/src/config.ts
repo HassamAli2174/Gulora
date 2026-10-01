@@ -20,7 +20,7 @@ export const config = {
     currency: process.env.CURRENCY || 'PKR',
     defaultTheme: process.env.DEFAULT_THEME || 'blush',
     social: {
-      instagram: process.env.INSTAGRAM_URL || '',
+      instagram: process.env.INSTAGRAM_URL || 'https://www.instagram.com/gulora.herbs.jewels/',
       facebook: process.env.FACEBOOK_URL || '',
       email: process.env.CONTACT_EMAIL || '',
     },
