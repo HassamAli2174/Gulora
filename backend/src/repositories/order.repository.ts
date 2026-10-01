@@ -1,6 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { config } from '../config.js';
 import type { Order } from '../models.js';
 
 export interface OrderRepository {
@@ -8,9 +7,13 @@ export interface OrderRepository {
   findById(id: string): Promise<Order | undefined>;
 }
 
-/** Simple file-backed order store. Replace with a database before going live at scale. */
+/**
+ * Simple file-backed order store for local development. Serverless hosts
+ * (Netlify) have a read-only filesystem, so use a database before enabling
+ * store mode in production.
+ */
 export class JsonOrderRepository implements OrderRepository {
-  private readonly file = path.join(config.paths.data, 'orders.json');
+  private readonly file = process.env.ORDERS_FILE ?? path.resolve('src', 'data', 'orders.json');
   private queue: Promise<unknown> = Promise.resolve();
 
   private async readAll(): Promise<Order[]> {

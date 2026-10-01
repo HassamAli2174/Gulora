@@ -1,12 +1,12 @@
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
-import { config } from '../config.js';
+import categoriesData from '../data/categories.json' with { type: 'json' };
+import productsData from '../data/products.json' with { type: 'json' };
 import type { Category, Product } from '../models.js';
 
 /**
- * Storage abstraction for the catalogue. Today it reads JSON files so the
- * catalogue can be edited by hand; later swap in a database-backed
- * implementation (MongoDB, PostgreSQL, a headless CMS...) without touching routes.
+ * Storage abstraction for the catalogue. Today it serves the JSON files in
+ * src/data (bundled at build time, so it also runs as a serverless function);
+ * later swap in a database-backed implementation (MongoDB, PostgreSQL, a
+ * headless CMS...) without touching routes.
  */
 export interface CatalogRepository {
   getCategories(): Promise<Category[]>;
@@ -15,21 +15,16 @@ export interface CatalogRepository {
   getProductById(id: string): Promise<Product | undefined>;
 }
 
-async function readJson<T>(file: string): Promise<T> {
-  // Read on every call so edits to the JSON show up without a restart.
-  const raw = await readFile(path.join(config.paths.data, file), 'utf8');
-  return JSON.parse(raw) as T;
-}
-
 export class JsonCatalogRepository implements CatalogRepository {
+  private readonly categories = categoriesData as Category[];
+  private readonly products = productsData as Product[];
+
   async getCategories() {
-    const categories = await readJson<Category[]>('categories.json');
-    return categories.sort((a, b) => a.sortOrder - b.sortOrder);
+    return [...this.categories].sort((a, b) => a.sortOrder - b.sortOrder);
   }
 
   async getProducts(filter: { categoryId?: string; featured?: boolean } = {}) {
-    const products = await readJson<Product[]>('products.json');
-    return products.filter(
+    return this.products.filter(
       (p) =>
         p.active &&
         (!filter.categoryId || p.categoryId === filter.categoryId) &&

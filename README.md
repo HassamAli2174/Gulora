@@ -34,19 +34,26 @@ npm run dev           # API on :3000 + website on http://localhost:4200
 **Production:** run `npm run build`, then `npm start`. The API also serves the built website, so you deploy a single
 Node app on port 3000.
 
-## Deploying (Render)
+## Deploying (Netlify)
 
-The repo includes a `render.yaml` Blueprint, which sets up one free Node web service that hosts both the site and the API.
+`netlify.toml` configures everything:
 
-1. On [render.com](https://render.com), go to **New → Blueprint** and connect this GitHub repo.
-2. Render reads `render.yaml`, builds, and gives you a URL like `https://gulora.onrender.com`.
+- The Angular site is built and served as static files, and product images are copied in as `/uploads/...`.
+- The Express API runs as a Netlify Function (`netlify/functions/api.ts`) at `/api/*`.
+
+To deploy:
+
+1. On [netlify.com](https://app.netlify.com), go to **Add new site → Import an existing project → GitHub** and pick this repo.
+2. Leave the build settings Netlify detects from `netlify.toml` as they are, and click **Deploy**.
 3. Every push to `main` redeploys the site automatically.
 
-To change settings in production (WhatsApp number, store mode...), edit the environment variables in the Render
-dashboard. `backend/.env` is only used on your computer and is never committed.
+To change settings in production (store mode, prices, social links...), add environment variables under
+**Site configuration → Environment variables**, then trigger a redeploy. The WhatsApp number defaults to the business
+number. `backend/.env` is only used on your computer and is never committed.
 
-> On Render's free plan the service sleeps after 15 minutes idle, so the first visit afterwards takes about 30 seconds.
-> The free plan's disk is also temporary, so connect a database before you enable store mode.
+> Netlify Functions have a read-only filesystem. Connect a database (see below) before you enable store mode.
+
+The API is also a normal Node server (`npm run build && npm start`), so it can move to any Node host later.
 
 ## Everyday changes
 
