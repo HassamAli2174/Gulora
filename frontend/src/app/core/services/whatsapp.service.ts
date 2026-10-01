@@ -20,13 +20,12 @@ export class WhatsAppService {
   }
 
   productLink(product: Product, variant?: ProductVariant, quantity = 1): string {
-    const url = `${this.document.location.origin}/product/${product.slug}`;
     const size = variant ? ` (${variant.label})` : '';
     const qty = quantity > 1 ? ` x ${quantity}` : '';
     return this.link(
       `Hi ${this.settings.settings().brandName}! I'd like to order:\n\n` +
         `• *${product.name}*${size}${qty}\n\n` +
-        `${url}\n\nPlease share the price and delivery details.`,
+        `Please share the price and delivery details.`,
     );
   }
 
