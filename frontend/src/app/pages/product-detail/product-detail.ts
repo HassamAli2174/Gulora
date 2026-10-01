@@ -1,22 +1,32 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { Meta, Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { catchError, map, of, startWith, switchMap } from 'rxjs';
 import { Product } from '../../core/models/catalog.model';
 import { CartService } from '../../core/services/cart.service';
 import { CatalogService } from '../../core/services/catalog.service';
+import { SeoService } from '../../core/services/seo.service';
 import { SettingsService } from '../../core/services/settings.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { Icon } from '../../shared/icon/icon';
 import { PricePipe } from '../../shared/price.pipe';
 import { ProductCard } from '../../shared/product-card/product-card';
+import { ResponsiveImg, ogImageUrl, optimizedUrl } from '../../shared/responsive-img';
 
 type Load = { status: 'loading' } | { status: 'not-found' } | { status: 'ready'; product: Product };
 
 @Component({
   selector: 'app-product-detail',
-  imports: [RouterLink, Icon, PricePipe, ProductCard],
+  imports: [RouterLink, Icon, PricePipe, ProductCard, ResponsiveImg],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -73,22 +83,56 @@ export class ProductDetail {
   });
 
   constructor() {
-    const title = inject(Title);
-    const meta = inject(Meta);
+    const seo = inject(SeoService);
+    const destroyRef = inject(DestroyRef);
+    destroyRef.onDestroy(() => seo.setJsonLd('ld-page', null));
 
-    // Reset selections and update the page title whenever the product changes.
+    // Reset selections and update SEO tags whenever the product changes.
     effect(() => {
       const p = this.product();
       this.variantId.set(null);
       this.activeImage.set(null);
       this.quantity.set(1);
       if (p) {
-        title.setTitle(`${p.name} | Gulora`);
-        meta.updateTag({ name: 'description', content: p.shortDescription });
+        const path = `/product/${p.slug}`;
+        seo.update({
+          title: `${p.name} - ${p.subtitle} | Gulora`,
+          description: p.shortDescription,
+          image: p.images[0] ? ogImageUrl(p.images[0]) : undefined,
+          path,
+          type: 'product',
+        });
+        seo.setJsonLd('ld-page', this.productJsonLd(p, seo.absolute(path), seo));
       } else if (this.status() === 'not-found') {
-        title.setTitle('Product not found | Gulora');
+        seo.update({ title: 'Product not found | Gulora', path: `/product/${this.slug()}` });
       }
     });
+  }
+
+  /** schema.org Product data so search engines understand the page. Offers are included once prices are set. */
+  private productJsonLd(p: Product, url: string, seo: SeoService) {
+    const priced = p.variants.filter((v) => v.price > 0);
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: p.name,
+      description: p.description,
+      image: p.images.map((img) => seo.absolute(optimizedUrl(img, 1200))),
+      brand: { '@type': 'Brand', name: 'Gulora' },
+      sku: p.variants[0]?.sku,
+      url,
+      offers: priced.length
+        ? priced.map((v) => ({
+            '@type': 'Offer',
+            sku: v.sku,
+            name: v.label,
+            price: v.price,
+            priceCurrency: this.settings.settings().currency,
+            availability: 'https://schema.org/InStock',
+            url,
+          }))
+        : undefined,
+    };
   }
 
   protected selectVariant(id: string) {

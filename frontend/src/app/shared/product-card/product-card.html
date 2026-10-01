@@ -1,8 +1,8 @@
 <article class="card">
   <a class="card__media" [routerLink]="['/product', product().slug]" [attr.aria-label]="product().name">
-    <img [src]="product().images[0]" [alt]="product().name" loading="lazy" />
+    <img [appImg]="product().images[0]" sizes="(max-width: 600px) 90vw, 360px" [alt]="product().name" loading="lazy" />
     @if (product().images[1]) {
-      <img class="card__media-alt" [src]="product().images[1]" alt="" loading="lazy" />
+      <img class="card__media-alt" [appImg]="product().images[1]" sizes="(max-width: 600px) 90vw, 360px" alt="" loading="lazy" />
     }
     @if (product().badges.length) {
       <div class="card__badges">

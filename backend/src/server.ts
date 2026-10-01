@@ -13,10 +13,14 @@ const frontendDist = path.resolve(backendDir, '..', 'frontend', 'dist', 'fronten
 app.use('/uploads', express.static(uploadsDir, { maxAge: '7d' }));
 
 // Serve the built Angular app when it exists, so one server can host everything.
+// Prerendered pages are real files (e.g. /shop/index.html); other routes fall back to the app shell.
 if (existsSync(frontendDist)) {
-  app.use(express.static(frontendDist));
+  const shell = ['index.csr.html', 'index.html']
+    .map((f) => path.join(frontendDist, f))
+    .find((f) => existsSync(f))!;
+  app.use(express.static(frontendDist, { extensions: ['html'] }));
   app.get('*', (_req, res) => {
-    res.sendFile(path.join(frontendDist, 'index.html'));
+    res.sendFile(shell);
   });
 }
 

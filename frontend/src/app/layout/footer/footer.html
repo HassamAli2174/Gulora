@@ -2,7 +2,7 @@
   <div class="container footer__grid">
     <div class="footer__brand">
       <a routerLink="/" class="footer__logo">
-        <img src="brand/logo.png" alt="Gulora - Herbs & Jewels" width="96" height="96" loading="lazy" />
+        <img src="brand/generated/logo-192.webp" alt="Gulora - Herbs & Jewels" width="96" height="96" loading="lazy" />
       </a>
       <p>Pure herbs, gentle rituals. Small-batch hair, skin and body care, crafted with love.</p>
       <div class="footer__social">
@@ -40,9 +40,12 @@
     </div>
 
     <div>
-      <h4>Gulora</h4>
+      <h4>Help</h4>
       <ul>
         <li><a routerLink="/about">Our story</a></li>
+        <li><a routerLink="/faq">FAQ</a></li>
+        <li><a routerLink="/shipping-returns">Shipping &amp; returns</a></li>
+        <li><a routerLink="/privacy">Privacy policy</a></li>
         <li><a routerLink="/contact">Contact</a></li>
         @if (settings.storeEnabled()) {
           <li><a routerLink="/cart">Your bag</a></li>

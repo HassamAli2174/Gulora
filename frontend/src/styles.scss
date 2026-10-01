@@ -26,7 +26,14 @@ body {
 
 img {
   max-width: 100%;
+  height: auto;
   display: block;
+}
+
+.inline-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 a {
@@ -143,6 +150,10 @@ p {
     margin-inline: auto;
     color: var(--color-text-muted);
   }
+}
+
+.page-hero + .section {
+  padding-top: clamp(24px, 3vw, 40px);
 }
 
 .skip-link:focus {

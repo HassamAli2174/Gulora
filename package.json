@@ -7,15 +7,18 @@
   },
   "scripts": {
     "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "images": "node scripts/optimize-images.mjs",
+    "predev": "npm run images",
     "dev": "concurrently -n api,web -c magenta,cyan \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
-    "build": "npm run build --prefix frontend && npm run build --prefix backend",
-    "build:netlify": "npm run build --prefix frontend && node -e \"require('fs').cpSync('backend/uploads','frontend/dist/frontend/browser/uploads',{recursive:true})\"",
+    "build": "npm run images && npm run build --prefix frontend && npm run build --prefix backend",
+    "build:netlify": "npm run images && npm run build --prefix frontend && node scripts/postbuild.mjs",
     "start": "npm start --prefix backend"
   },
   "dependencies": {
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "sharp": "^0.34.5"
   }
 }

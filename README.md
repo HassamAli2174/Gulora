@@ -66,6 +66,21 @@ The API is also a normal Node server (`npm run build && npm start`), so it can m
 | Switch theme                 | `DEFAULT_THEME=blush` or `herbal` in `backend/.env`                      |
 | Add Instagram/email links    | `INSTAGRAM_URL`, `FACEBOOK_URL`, `CONTACT_EMAIL` in `backend/.env`       |
 | Change WhatsApp message text | `frontend/src/app/core/services/whatsapp.service.ts`                    |
+| Edit FAQ, shipping or privacy text | `frontend/src/app/content/help-content.ts`                        |
+| Change page titles / search descriptions | `title` and `data.description` in `frontend/src/app/app.routes.ts` |
+
+## Images, SEO and link previews
+
+- **Images:** put original photos in `backend/uploads/products/`. `npm run images` runs automatically before dev and
+  every build, and creates WebP versions (480/800/1200 px) plus 1200×630 share images. The site serves the right size
+  for each screen. Generated files are not committed.
+- **Prerendering:** every page (home, shop, each product, about, contact, FAQ, policies) is rendered to static HTML at
+  build time (`frontend/src/app/app.routes.server.ts`). WhatsApp, Instagram and Facebook link previews, and Google,
+  see real content, titles and images. New products are prerendered automatically.
+- **Structured data:** product pages include schema.org `Product` data (prices are added automatically once set), the
+  FAQ includes `FAQPage`, and every page includes `Organization`. `sitemap.xml` and `robots.txt` are generated on build.
+- **Your own domain:** once connected in Netlify, set a `SITE_URL` environment variable (for example
+  `https://gulora.pk`) so share links and the sitemap use it.
 
 Restart the backend after changing `.env`. Product JSON changes show up immediately.
 

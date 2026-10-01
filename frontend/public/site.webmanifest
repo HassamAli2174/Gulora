@@ -1,0 +1,13 @@
+{
+  "name": "Gulora - Herbs & Jewels",
+  "short_name": "Gulora",
+  "description": "Herbal hair, skin and body care. Order on WhatsApp.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf6f3",
+  "theme_color": "#fbf6f3",
+  "icons": [
+    { "src": "/brand/generated/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/brand/generated/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

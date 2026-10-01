@@ -6,10 +6,11 @@ import { SettingsService } from '../../core/services/settings.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { Icon } from '../icon/icon';
 import { PricePipe } from '../price.pipe';
+import { ResponsiveImg } from '../responsive-img';
 
 @Component({
   selector: 'app-product-card',
-  imports: [RouterLink, Icon, PricePipe],
+  imports: [RouterLink, Icon, PricePipe, ResponsiveImg],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

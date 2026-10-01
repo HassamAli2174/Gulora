@@ -28,7 +28,7 @@
         <ul class="lines">
           @for (item of cart.items(); track item.variantId) {
             <li class="line">
-              <a [routerLink]="['/product', item.slug]"><img [src]="item.image" [alt]="item.name" /></a>
+              <a [routerLink]="['/product', item.slug]"><img [appImg]="item.image" sizes="88px" [alt]="item.name" /></a>
               <div class="line__info">
                 <a [routerLink]="['/product', item.slug]" class="line__name">{{ item.name }}</a>
                 <span class="line__variant">{{ item.variantLabel }}</span>

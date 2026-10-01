@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Injectable, computed, effect, inject, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, computed, effect, inject, signal } from '@angular/core';
 
 export type ColorMode = 'light' | 'dark' | 'system';
 
@@ -13,7 +13,9 @@ const THEME_KEY = 'gulora-theme';
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   private readonly document = inject(DOCUMENT);
-  private readonly media = this.document.defaultView?.matchMedia('(prefers-color-scheme: dark)');
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  // matchMedia / getComputedStyle / localStorage only exist in the browser (not while prerendering).
+  private readonly media = this.isBrowser ? matchMedia('(prefers-color-scheme: dark)') : undefined;
   private readonly systemDark = signal(this.media?.matches ?? false);
 
   readonly mode = signal<ColorMode>(this.read(MODE_KEY, ['light', 'dark', 'system'], 'system'));
@@ -31,6 +33,7 @@ export class ThemeService {
       } else {
         root.removeAttribute('data-mode');
       }
+      if (!this.isBrowser) return;
       const bg = getComputedStyle(root).getPropertyValue('--color-bg').trim();
       this.document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bg);
       this.write(MODE_KEY, this.mode());

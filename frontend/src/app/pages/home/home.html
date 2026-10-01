@@ -18,10 +18,10 @@
 
     <div class="hero__visual fade-up" style="animation-delay: 0.15s">
       <div class="hero__arch">
-        <img src="/uploads/products/shampoo.jpeg" alt="Gulora Herbal Shampoo with 25+ herbs" fetchpriority="high" />
+        <img appImg="/uploads/products/shampoo.jpeg" sizes="(max-width: 820px) 80vw, 460px" alt="Gulora Herbal Shampoo with 25+ herbs" fetchpriority="high" />
       </div>
       <div class="hero__round">
-        <img src="/uploads/products/skincareserum.jpeg" alt="Gulora Skin Care Serum" />
+        <img appImg="/uploads/products/skincareserum.jpeg" sizes="200px" alt="Gulora Skin Care Serum" />
       </div>
       <span class="hero__spark" aria-hidden="true">✦</span>
     </div>
@@ -96,7 +96,7 @@
           } @else {
             <a class="category" routerLink="/shop" [queryParams]="{ category: category.id }">
               @if (category.image) {
-                <img [src]="category.image" [alt]="category.name" loading="lazy" />
+                <img [appImg]="category.image" sizes="(max-width: 520px) 90vw, 280px" [alt]="category.name" loading="lazy" />
               }
               <div class="category__body">
                 <h3>{{ category.name }}</h3>
@@ -115,7 +115,7 @@
 <section class="section">
   <div class="container split">
     <div class="split__media">
-      <img src="/uploads/products/soaps.jpeg" alt="Handmade Gulora herbal soaps on a wooden tray" loading="lazy" />
+      <img appImg="/uploads/products/soaps.jpeg" sizes="(max-width: 820px) 90vw, 560px" alt="Handmade Gulora herbal soaps on a wooden tray" loading="lazy" />
     </div>
     <div class="split__copy">
       <span class="eyebrow">Our Philosophy</span>
@@ -134,7 +134,7 @@
 <section class="section section--alt">
   <div class="container split split--reverse">
     <div class="split__media split__media--arch">
-      <img src="/uploads/products/tester-20ml-shampoo.jpeg" alt="Gulora Herbal Shampoo 20 ml tester" loading="lazy" />
+      <img appImg="/uploads/products/tester-20ml-shampoo.jpeg" sizes="(max-width: 820px) 90vw, 420px" alt="Gulora Herbal Shampoo 20 ml tester" loading="lazy" />
     </div>
     <div class="split__copy">
       <span class="eyebrow">Try Before You Commit</span>

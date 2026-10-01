@@ -22,7 +22,7 @@
             <!-- Gallery -->
             <div class="gallery">
               <div class="gallery__main">
-                <img [src]="image()" [alt]="p.name" />
+                <img [appImg]="image()" sizes="(max-width: 860px) 95vw, 620px" [alt]="p.name" fetchpriority="high" />
               </div>
               @if (p.images.length > 1) {
                 <div class="gallery__thumbs">
@@ -34,7 +34,7 @@
                       (click)="activeImage.set(img)"
                       [attr.aria-label]="'Show image ' + ($index + 1)"
                     >
-                      <img [src]="img" alt="" loading="lazy" />
+                      <img [appImg]="img" sizes="84px" alt="" loading="lazy" />
                     </button>
                   }
                 </div>
@@ -132,8 +132,9 @@
               <details class="accordion">
                 <summary>Ordering &amp; delivery</summary>
                 <p>
-                  Tap “Order on WhatsApp” and we'll confirm pricing, availability and delivery for your area within a
-                  few hours.
+                  Tap “Order on WhatsApp” and we'll confirm pricing, availability and delivery for your area.
+                  <a routerLink="/shipping-returns" class="inline-link">Shipping &amp; returns</a> ·
+                  <a routerLink="/faq" class="inline-link">FAQ</a>
                 </p>
               </details>
             </div>

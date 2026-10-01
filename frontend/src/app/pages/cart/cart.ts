@@ -9,6 +9,7 @@ import { SettingsService } from '../../core/services/settings.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { Icon } from '../../shared/icon/icon';
 import { PricePipe } from '../../shared/price.pipe';
+import { ResponsiveImg } from '../../shared/responsive-img';
 
 /**
  * Store-mode cart & checkout. Orders are saved via the API, then the customer
@@ -16,7 +17,7 @@ import { PricePipe } from '../../shared/price.pipe';
  */
 @Component({
   selector: 'app-cart',
-  imports: [RouterLink, ReactiveFormsModule, Icon, PricePipe],
+  imports: [RouterLink, ReactiveFormsModule, Icon, PricePipe, ResponsiveImg],
   templateUrl: './cart.html',
   styleUrl: './cart.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

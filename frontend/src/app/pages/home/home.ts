@@ -6,10 +6,11 @@ import { CatalogService } from '../../core/services/catalog.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { Icon, IconName } from '../../shared/icon/icon';
 import { ProductCard } from '../../shared/product-card/product-card';
+import { ResponsiveImg } from '../../shared/responsive-img';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, Icon, ProductCard],
+  imports: [RouterLink, Icon, ProductCard, ResponsiveImg],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
