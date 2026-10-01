@@ -1,0 +1,121 @@
+// =============================================================================
+// THEMES
+// Every colour in the app comes from these tokens. To add a new brand theme,
+// copy one block below, rename it, and register the name in ThemeService.
+// Each theme defines a light palette and a dark palette.
+// =============================================================================
+
+@mixin blush-light {
+  --color-bg: #fbf6f3;
+  --color-bg-alt: #f5e8e3;
+  --color-surface: #ffffff;
+  --color-surface-2: #fdf3ef;
+  --color-text: #1f1a1a;
+  --color-text-muted: #6d605d;
+  --color-border: #ead8d1;
+  --color-primary: #a85d6a;        // rose (label maroon, softened)
+  --color-primary-hover: #8f4a57;
+  --color-primary-soft: #f3dcd8;
+  --color-on-primary: #ffffff;
+  --color-accent: #c99a8c;         // rose gold leaf in the logo
+  --color-herb: #5f6f45;
+  --color-ink: #151212;            // logo black
+  --color-on-ink: #fbf6f3;
+  --shadow-sm: 0 1px 2px rgba(80, 40, 40, 0.06), 0 2px 8px rgba(80, 40, 40, 0.05);
+  --shadow-md: 0 8px 30px rgba(80, 40, 40, 0.1);
+  --hero-overlay: linear-gradient(90deg, rgba(251, 246, 243, 0.96) 0%, rgba(251, 246, 243, 0.75) 45%, rgba(251, 246, 243, 0) 75%);
+  color-scheme: light;
+}
+
+@mixin blush-dark {
+  --color-bg: #151112;
+  --color-bg-alt: #1d1718;
+  --color-surface: #221b1c;
+  --color-surface-2: #2a2123;
+  --color-text: #f4e9e5;
+  --color-text-muted: #b8a7a2;
+  --color-border: #3a2e2f;
+  --color-primary: #e3a6af;
+  --color-primary-hover: #efbcc3;
+  --color-primary-soft: #3b2729;
+  --color-on-primary: #1c1415;
+  --color-accent: #d9ad9f;
+  --color-herb: #a9b98a;
+  --color-ink: #f4e9e5;
+  --color-on-ink: #151112;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --hero-overlay: linear-gradient(90deg, rgba(21, 17, 18, 0.95) 0%, rgba(21, 17, 18, 0.72) 45%, rgba(21, 17, 18, 0.05) 80%);
+  color-scheme: dark;
+}
+
+@mixin herbal-light {
+  --color-bg: #f5f5ee;
+  --color-bg-alt: #e9ecdf;
+  --color-surface: #ffffff;
+  --color-surface-2: #f0f2e8;
+  --color-text: #1b1e17;
+  --color-text-muted: #5d6453;
+  --color-border: #d9dfcb;
+  --color-primary: #4f6b3c;
+  --color-primary-hover: #3e5630;
+  --color-primary-soft: #dfe7d3;
+  --color-on-primary: #ffffff;
+  --color-accent: #b58a5c;
+  --color-herb: #4f6b3c;
+  --color-ink: #161913;
+  --color-on-ink: #f5f5ee;
+  --shadow-sm: 0 1px 2px rgba(40, 50, 30, 0.06), 0 2px 8px rgba(40, 50, 30, 0.05);
+  --shadow-md: 0 8px 30px rgba(40, 50, 30, 0.1);
+  --hero-overlay: linear-gradient(90deg, rgba(245, 245, 238, 0.96) 0%, rgba(245, 245, 238, 0.75) 45%, rgba(245, 245, 238, 0) 75%);
+  color-scheme: light;
+}
+
+@mixin herbal-dark {
+  --color-bg: #111410;
+  --color-bg-alt: #181c16;
+  --color-surface: #1d221a;
+  --color-surface-2: #242a20;
+  --color-text: #eaeee2;
+  --color-text-muted: #a6ae98;
+  --color-border: #333a2c;
+  --color-primary: #a9c48f;
+  --color-primary-hover: #bdd4a6;
+  --color-primary-soft: #2c3526;
+  --color-on-primary: #111410;
+  --color-accent: #d6b288;
+  --color-herb: #a9c48f;
+  --color-ink: #eaeee2;
+  --color-on-ink: #111410;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --hero-overlay: linear-gradient(90deg, rgba(17, 20, 16, 0.95) 0%, rgba(17, 20, 16, 0.72) 45%, rgba(17, 20, 16, 0.05) 80%);
+  color-scheme: dark;
+}
+
+// Theme-independent tokens
+:root {
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'Jost', 'Segoe UI', system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --container: 1200px;
+  --header-height: 76px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #1ebe5b;
+  --color-success: #3b8a57;
+  --color-danger: #c0392b;
+
+  @include blush-light;
+}
+
+:root[data-theme='blush'] { @include blush-light; }
+:root[data-theme='blush'][data-mode='dark'] { @include blush-dark; }
+:root[data-theme='herbal'] { @include herbal-light; }
+:root[data-theme='herbal'][data-mode='dark'] { @include herbal-dark; }

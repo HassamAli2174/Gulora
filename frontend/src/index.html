@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" data-theme="blush">
+<head>
+  <meta charset="utf-8">
+  <title>Gulora | Herbs & Jewels</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gulora - Herbs & Jewels. Handcrafted herbal shampoo, skin care serum and herbal soaps, made with pure herbs.">
+  <meta name="theme-color" content="#fbf6f3">
+  <link rel="icon" type="image/png" href="brand/logo.png">
+  <link rel="apple-touch-icon" href="brand/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    // Apply the saved theme before Angular boots to avoid a flash of the wrong colours.
+    (function () {
+      try {
+        var mode = localStorage.getItem('gulora-mode') || 'system';
+        var dark = mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (dark) document.documentElement.setAttribute('data-mode', 'dark');
+        var theme = localStorage.getItem('gulora-theme');
+        if (theme) document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

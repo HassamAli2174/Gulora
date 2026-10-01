@@ -1,0 +1,161 @@
+@switch (status()) {
+  @case ('loading') {
+    <div class="container state">Loading…</div>
+  }
+  @case ('not-found') {
+    <div class="container state">
+      <h2>We couldn't find that product</h2>
+      <p>It may have moved or is no longer available.</p>
+      <a routerLink="/shop" class="btn btn--outline">Back to shop</a>
+    </div>
+  }
+  @case ('ready') {
+    @if (product(); as p) {
+      <section class="section product">
+        <div class="container">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a routerLink="/">Home</a> <span>/</span> <a routerLink="/shop">Shop</a> <span>/</span>
+            <span aria-current="page">{{ p.name }}</span>
+          </nav>
+
+          <div class="product__grid">
+            <!-- Gallery -->
+            <div class="gallery">
+              <div class="gallery__main">
+                <img [src]="image()" [alt]="p.name" />
+              </div>
+              @if (p.images.length > 1) {
+                <div class="gallery__thumbs">
+                  @for (img of p.images; track img) {
+                    <button
+                      type="button"
+                      class="gallery__thumb"
+                      [class.is-active]="img === image()"
+                      (click)="activeImage.set(img)"
+                      [attr.aria-label]="'Show image ' + ($index + 1)"
+                    >
+                      <img [src]="img" alt="" loading="lazy" />
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Info -->
+            <div class="info">
+              @if (p.badges.length) {
+                <div class="info__badges">
+                  @for (badge of p.badges; track badge) {
+                    <span class="badge">{{ badge }}</span>
+                  }
+                </div>
+              }
+              <h1>{{ p.name }}</h1>
+              <p class="info__subtitle">{{ p.subtitle }}</p>
+
+              @if (settings.showPrices() && variant(); as v) {
+                <p class="info__price">
+                  {{ v.price | price }}
+                  @if (v.compareAtPrice && v.compareAtPrice > v.price) {
+                    <s>{{ v.compareAtPrice | price }}</s>
+                  }
+                </p>
+              }
+
+              <p class="info__desc">{{ p.description }}</p>
+
+              @if (p.variants.length > 1) {
+                <div class="info__block">
+                  <span class="info__label">Size</span>
+                  <div class="variants" role="radiogroup" aria-label="Choose a size">
+                    @for (v of p.variants; track v.id) {
+                      <button
+                        type="button"
+                        class="chip"
+                        role="radio"
+                        [attr.aria-checked]="v.id === variant()?.id"
+                        [class.is-active]="v.id === variant()?.id"
+                        (click)="selectVariant(v.id)"
+                      >
+                        {{ v.label }}
+                      </button>
+                    }
+                  </div>
+                </div>
+              } @else if (variant(); as v) {
+                <div class="info__block">
+                  <span class="info__label">Size</span>
+                  <span>{{ v.label }}</span>
+                </div>
+              }
+
+              <div class="info__block">
+                <span class="info__label">Quantity</span>
+                <div class="qty">
+                  <button type="button" (click)="changeQty(-1)" aria-label="Decrease quantity"><app-icon name="minus" /></button>
+                  <span aria-live="polite">{{ quantity() }}</span>
+                  <button type="button" (click)="changeQty(1)" aria-label="Increase quantity"><app-icon name="plus" /></button>
+                </div>
+              </div>
+
+              <div class="info__actions">
+                @if (settings.storeEnabled()) {
+                  <button type="button" class="btn btn--primary btn--block" (click)="addToCart()">
+                    <app-icon [name]="added() ? 'check' : 'bag'" /> {{ added() ? 'Added to bag' : 'Add to bag' }}
+                  </button>
+                }
+                <a class="btn btn--whatsapp btn--block" [href]="whatsappLink()" target="_blank" rel="noopener">
+                  <app-icon name="whatsapp" /> Order on WhatsApp
+                </a>
+              </div>
+
+              @if (p.benefits.length) {
+                <ul class="benefits">
+                  @for (b of p.benefits; track b.label) {
+                    <li><span class="benefits__icon"><app-icon [name]="b.icon" /></span>{{ b.label }}</li>
+                  }
+                </ul>
+              }
+
+              @if (p.ingredients.length) {
+                <details class="accordion" open>
+                  <summary>Key ingredients</summary>
+                  <p>{{ p.ingredients.join(' · ') }}</p>
+                </details>
+              }
+              @if (p.howToUse) {
+                <details class="accordion">
+                  <summary>How to use</summary>
+                  <p>{{ p.howToUse }}</p>
+                </details>
+              }
+              <details class="accordion">
+                <summary>Ordering &amp; delivery</summary>
+                <p>
+                  Tap “Order on WhatsApp” and we'll confirm pricing, availability and delivery for your area within a
+                  few hours.
+                </p>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      @if (related().length) {
+        <section class="section section--alt">
+          <div class="container">
+            <div class="section-head">
+              <span class="eyebrow">Complete the Ritual</span>
+              <h2>You may also love</h2>
+            </div>
+            <div class="grid grid--products">
+              @for (r of related(); track r.id) {
+                <app-product-card [product]="r" />
+              }
+            </div>
+          </div>
+        </section>
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Our Story</span>
+    <h1>Where herbs meet <em>jewels</em></h1>
+    <p>A small brand with a simple belief: everyday care should be pure, gentle and beautiful.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container story">
+    <div class="story__media">
+      <img src="brand/logo.png" alt="Gulora - Herbs & Jewels logo" loading="lazy" />
+    </div>
+    <div class="story__copy">
+      <h2>Rooted in tradition</h2>
+      <p>
+        Gulora was born from the herbal remedies we grew up with: amla for strength, reetha for a gentle lather,
+        shikakai for shine. We wanted to bring those time-honoured ingredients into products that feel as special as
+        they are effective.
+      </p>
+      <p>
+        The name brings together what we love: the purity of <strong>herbs</strong> and the care you'd give to a
+        treasured <strong>jewel</strong>. Every product we make is a small ritual of self-care, made by hand and made
+        with heart.
+      </p>
+      <a routerLink="/shop" class="btn btn--ink">Discover the collection <app-icon name="arrow-right" /></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What We Believe</span>
+      <h2>Our promise to you</h2>
+    </div>
+    <div class="values">
+      @for (v of values; track v.title) {
+        <div class="value">
+          <span class="value__icon"><app-icon [name]="v.icon" /></span>
+          <h3>{{ v.title }}</h3>
+          <p>{{ v.text }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container center">
+    <h2>Have a question?</h2>
+    <p class="muted">We love talking herbs. Send us a message and we'll help you find your perfect ritual.</p>
+    <a class="btn btn--whatsapp" [href]="whatsapp.generalLink()" target="_blank" rel="noopener">
+      <app-icon name="whatsapp" /> Chat on WhatsApp
+    </a>
+  </div>
+</section>

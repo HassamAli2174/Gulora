@@ -1,0 +1,165 @@
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__copy fade-up">
+      <span class="eyebrow">Herbs &amp; Jewels</span>
+      <h1>Pure herbs,<br /><em>crafted like jewels.</em></h1>
+      <p class="hero__lead">
+        Gentle, small-batch hair, skin and body care rooted in time-honoured herbal traditions.
+        Made to be your everyday ritual.
+      </p>
+      <div class="hero__actions">
+        <a routerLink="/shop" class="btn btn--ink">Explore the collection <app-icon name="arrow-right" /></a>
+        <a class="btn btn--whatsapp" [href]="whatsapp.generalLink()" target="_blank" rel="noopener">
+          <app-icon name="whatsapp" /> Order on WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__visual fade-up" style="animation-delay: 0.15s">
+      <div class="hero__arch">
+        <img src="/uploads/products/shampoo.jpeg" alt="Gulora Herbal Shampoo with 25+ herbs" fetchpriority="high" />
+      </div>
+      <div class="hero__round">
+        <img src="/uploads/products/skincareserum.jpeg" alt="Gulora Skin Care Serum" />
+      </div>
+      <span class="hero__spark" aria-hidden="true">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISES -->
+<section class="promises">
+  <div class="container promises__grid">
+    @for (item of promises; track item.title) {
+      <div class="promise">
+        <span class="promise__icon"><app-icon [name]="item.icon" /></span>
+        <div>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">The Collection</span>
+      <h2>Loved by hair &amp; skin</h2>
+      <p>Each formula is made with herbs we trust, for results you can feel.</p>
+    </div>
+
+    @if (products(); as list) {
+      <div class="grid grid--products">
+        @for (product of list; track product.id) {
+          <app-product-card [product]="product" [categoryName]="categoryName()(product.categoryId)" />
+        }
+      </div>
+    } @else if (products() === null) {
+      <p class="state">We couldn't load products right now. Please refresh, or message us on WhatsApp.</p>
+    } @else {
+      <div class="grid grid--products">
+        @for (i of [1, 2, 3]; track i) {
+          <div class="skeleton"></div>
+        }
+      </div>
+    }
+
+    <div class="center">
+      <a routerLink="/shop" class="btn btn--outline">View all products</a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+@if (categories().length) {
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Shop by Ritual</span>
+        <h2>Care for every part of you</h2>
+      </div>
+      <div class="categories">
+        @for (category of categories(); track category.id) {
+          @if (category.comingSoon) {
+            <div class="category category--soon">
+              <div class="category__soon-mark">✦</div>
+              <div class="category__body">
+                <h3>{{ category.name }}</h3>
+                <p>{{ category.description }}</p>
+                <span class="badge">Coming soon</span>
+              </div>
+            </div>
+          } @else {
+            <a class="category" routerLink="/shop" [queryParams]="{ category: category.id }">
+              @if (category.image) {
+                <img [src]="category.image" [alt]="category.name" loading="lazy" />
+              }
+              <div class="category__body">
+                <h3>{{ category.name }}</h3>
+                <p>{{ category.description }}</p>
+                <span class="category__link">Shop now <app-icon name="arrow-right" /></span>
+              </div>
+            </a>
+          }
+        }
+      </div>
+    </div>
+  </section>
+}
+
+<!-- STORY -->
+<section class="section">
+  <div class="container split">
+    <div class="split__media">
+      <img src="/uploads/products/soaps.jpeg" alt="Handmade Gulora herbal soaps on a wooden tray" loading="lazy" />
+    </div>
+    <div class="split__copy">
+      <span class="eyebrow">Our Philosophy</span>
+      <h2>Rooted in nature, <em>made with heart</em></h2>
+      <p>
+        Gulora began with a simple belief: the best care comes from the earth. We blend traditional herbs like
+        amla, reetha and shikakai into modern, gentle formulas, poured and packed by hand.
+      </p>
+      <p>No shortcuts, just honest ingredients and a whole lot of love in every batch.</p>
+      <a routerLink="/about" class="btn btn--outline">Read our story</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTER CALLOUT -->
+<section class="section section--alt">
+  <div class="container split split--reverse">
+    <div class="split__media split__media--arch">
+      <img src="/uploads/products/tester-20ml-shampoo.jpeg" alt="Gulora Herbal Shampoo 20 ml tester" loading="lazy" />
+    </div>
+    <div class="split__copy">
+      <span class="eyebrow">Try Before You Commit</span>
+      <h2>Meet the <em>20 ml tester</em></h2>
+      <p>
+        Not sure yet? Our travel-friendly tester lets you experience the Herbal Shampoo before you pick up the full
+        500 ml bottle.
+      </p>
+      <p class="quote">Pure Herbs. Healthier Hair. ♡</p>
+      <a class="btn btn--whatsapp" [href]="testerLink()" target="_blank" rel="noopener">
+        <app-icon name="whatsapp" /> Request a tester
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container cta__inner">
+    <div>
+      <h2>Ordering is just a message away</h2>
+      <p>Tell us what you'd like and we'll take care of the rest: pricing, delivery and any questions.</p>
+    </div>
+    <a class="btn btn--whatsapp" [href]="whatsapp.generalLink()" target="_blank" rel="noopener">
+      <app-icon name="whatsapp" /> Chat on WhatsApp
+    </a>
+  </div>
+</section>

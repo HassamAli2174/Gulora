@@ -1,0 +1,30 @@
+[
+  {
+    "id": "hair-care",
+    "name": "Hair Care",
+    "description": "Herbal cleansers made with amla, reetha, shikakai and more.",
+    "image": "/uploads/products/shampoo.jpeg",
+    "sortOrder": 1
+  },
+  {
+    "id": "skin-care",
+    "name": "Skin Care",
+    "description": "Gentle serums that nourish, hydrate and bring out your glow.",
+    "image": "/uploads/products/skincareserum.jpeg",
+    "sortOrder": 2
+  },
+  {
+    "id": "bath-body",
+    "name": "Bath & Body",
+    "description": "Handmade herbal soaps, poured and cured in small batches.",
+    "image": "/uploads/products/soaps.jpeg",
+    "sortOrder": 3
+  },
+  {
+    "id": "jewels",
+    "name": "Jewels",
+    "description": "Delicate pieces to complete the ritual.",
+    "comingSoon": true,
+    "sortOrder": 4
+  }
+]

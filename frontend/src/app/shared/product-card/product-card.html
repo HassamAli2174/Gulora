@@ -1,0 +1,48 @@
+<article class="card">
+  <a class="card__media" [routerLink]="['/product', product().slug]" [attr.aria-label]="product().name">
+    <img [src]="product().images[0]" [alt]="product().name" loading="lazy" />
+    @if (product().images[1]) {
+      <img class="card__media-alt" [src]="product().images[1]" alt="" loading="lazy" />
+    }
+    @if (product().badges.length) {
+      <div class="card__badges">
+        @for (badge of product().badges.slice(0, 2); track badge) {
+          <span class="badge">{{ badge }}</span>
+        }
+      </div>
+    }
+  </a>
+
+  <div class="card__body">
+    @if (categoryName()) {
+      <span class="card__category">{{ categoryName() }}</span>
+    }
+    <h3 class="card__title">
+      <a [routerLink]="['/product', product().slug]">{{ product().name }}</a>
+    </h3>
+    <p class="card__subtitle">{{ product().subtitle }}</p>
+
+    <div class="card__meta">
+      <span class="card__sizes">{{ sizes() }}</span>
+      @if (settings.showPrices()) {
+        <span class="card__price">
+          @if (product().variants.length > 1 && fromPrice()) { From }
+          {{ fromPrice() | price }}
+        </span>
+      }
+    </div>
+
+    <div class="card__actions">
+      <a class="btn btn--outline" [routerLink]="['/product', product().slug]">View</a>
+      @if (settings.storeEnabled()) {
+        <button type="button" class="btn btn--primary" (click)="addToCart()">
+          <app-icon name="bag" /> Add
+        </button>
+      } @else {
+        <a class="btn btn--whatsapp" [href]="whatsappLink()" target="_blank" rel="noopener">
+          <app-icon name="whatsapp" /> Order
+        </a>
+      }
+    </div>
+  </div>
+</article>

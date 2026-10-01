@@ -1,0 +1,44 @@
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Shop</span>
+    <h1>{{ activeCategory()?.name ?? 'The Collection' }}</h1>
+    <p>{{ activeCategory()?.description ?? 'Herbal care for hair, skin and body, made in small batches.' }}</p>
+  </div>
+</section>
+
+<section class="section shop">
+  <div class="container">
+    <nav class="filters" aria-label="Filter by category">
+      <a class="chip" routerLink="/shop" [class.is-active]="!category()">All</a>
+      @for (c of categories(); track c.id) {
+        @if (c.comingSoon) {
+          <button type="button" class="chip" disabled>{{ c.name }} <small>· soon</small></button>
+        } @else {
+          <a class="chip" routerLink="/shop" [queryParams]="{ category: c.id }" [class.is-active]="category() === c.id">
+            {{ c.name }}
+          </a>
+        }
+      }
+    </nav>
+
+    @switch (state().status) {
+      @case ('loading') {
+        <p class="state">Loading products…</p>
+      }
+      @case ('error') {
+        <p class="state">We couldn't load products right now. Please try again shortly.</p>
+      }
+      @case ('ready') {
+        @if (products().length) {
+          <div class="grid grid--products">
+            @for (product of products(); track product.id) {
+              <app-product-card [product]="product" [categoryName]="categoryName()(product.categoryId)" />
+            }
+          </div>
+        } @else {
+          <p class="state">New products are on their way. Check back soon!</p>
+        }
+      }
+    }
+  </div>
+</section>

@@ -1,0 +1,21 @@
+.shop {
+  padding-top: 40px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+
+  small {
+    opacity: 0.7;
+  }
+}
+
+.state {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 48px 0;
+}

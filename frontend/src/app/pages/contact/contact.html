@@ -1,0 +1,69 @@
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Contact</span>
+    <h1>We'd love to hear from you</h1>
+    <p>The fastest way to reach us is WhatsApp. We usually reply within a few hours.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact">
+    <aside class="contact__card">
+      <span class="contact__icon"><app-icon name="whatsapp" /></span>
+      <h2>Chat on WhatsApp</h2>
+      <p>Orders, product advice, delivery questions. Just drop us a message.</p>
+      <a class="btn btn--whatsapp btn--block" [href]="whatsapp.generalLink()" target="_blank" rel="noopener">
+        <app-icon name="whatsapp" /> Start a chat
+      </a>
+
+      @if (settings.settings().social.instagram || settings.settings().social.email) {
+        <div class="contact__other">
+          @if (settings.settings().social.instagram) {
+            <a [href]="settings.settings().social.instagram" target="_blank" rel="noopener">
+              <app-icon name="instagram" /> Instagram
+            </a>
+          }
+          @if (settings.settings().social.email) {
+            <a [href]="'mailto:' + settings.settings().social.email">
+              <app-icon name="mail" /> {{ settings.settings().social.email }}
+            </a>
+          }
+        </div>
+      }
+    </aside>
+
+    <form class="contact__form" [formGroup]="form" (ngSubmit)="send()" novalidate>
+      <h2>Send us a message</h2>
+      <p class="muted">Fill this in and we'll open WhatsApp with your message ready to send.</p>
+
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" formControlName="name" autocomplete="name" />
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+          <small class="error">Please tell us your name.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="topic">Topic</label>
+        <select id="topic" formControlName="topic">
+          @for (t of topics; track t) {
+            <option [value]="t">{{ t }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" formControlName="message" rows="5"></textarea>
+        @if (form.controls.message.touched && form.controls.message.invalid) {
+          <small class="error">Please write a short message.</small>
+        }
+      </div>
+
+      <button type="submit" class="btn btn--ink">
+        <app-icon name="whatsapp" /> Send via WhatsApp
+      </button>
+    </form>
+  </div>
+</section>

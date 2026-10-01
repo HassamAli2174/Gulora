@@ -1,0 +1,93 @@
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Your Bag</span>
+    <h1>{{ placed() ? 'Thank you!' : 'Shopping bag' }}</h1>
+  </div>
+</section>
+
+<section class="section cart-page">
+  <div class="container">
+    @if (placed(); as done) {
+      <div class="done">
+        <span class="done__icon"><app-icon name="check" /></span>
+        <h2>Order {{ done.order.id }} received</h2>
+        <p>Send it to us on WhatsApp to confirm delivery details and payment.</p>
+        <a class="btn btn--whatsapp" [href]="done.whatsappLink" target="_blank" rel="noopener">
+          <app-icon name="whatsapp" /> Confirm on WhatsApp
+        </a>
+        <a routerLink="/shop" class="btn btn--outline">Continue shopping</a>
+      </div>
+    } @else if (cart.isEmpty()) {
+      <div class="done">
+        <h2>Your bag is empty</h2>
+        <p>Discover our herbal collection and find your new ritual.</p>
+        <a routerLink="/shop" class="btn btn--ink">Shop now</a>
+      </div>
+    } @else {
+      <div class="cart">
+        <ul class="lines">
+          @for (item of cart.items(); track item.variantId) {
+            <li class="line">
+              <a [routerLink]="['/product', item.slug]"><img [src]="item.image" [alt]="item.name" /></a>
+              <div class="line__info">
+                <a [routerLink]="['/product', item.slug]" class="line__name">{{ item.name }}</a>
+                <span class="line__variant">{{ item.variantLabel }}</span>
+                @if (settings.showPrices()) {
+                  <span>{{ item.unitPrice | price }}</span>
+                }
+              </div>
+              <div class="qty">
+                <button type="button" (click)="cart.setQuantity(item.variantId, item.quantity - 1)" aria-label="Decrease">
+                  <app-icon name="minus" />
+                </button>
+                <span>{{ item.quantity }}</span>
+                <button type="button" (click)="cart.setQuantity(item.variantId, item.quantity + 1)" aria-label="Increase">
+                  <app-icon name="plus" />
+                </button>
+              </div>
+              <button type="button" class="icon-btn" (click)="cart.remove(item.variantId)" aria-label="Remove item">
+                <app-icon name="trash" />
+              </button>
+            </li>
+          }
+        </ul>
+
+        <form class="summary" [formGroup]="form" (ngSubmit)="checkout()" novalidate>
+          <h2>Checkout</h2>
+          @if (settings.showPrices()) {
+            <p class="summary__total"><span>Subtotal</span> <strong>{{ cart.subtotal() | price }}</strong></p>
+          }
+          <div class="field">
+            <label for="c-name">Full name</label>
+            <input id="c-name" formControlName="name" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="c-phone">Phone / WhatsApp</label>
+            <input id="c-phone" formControlName="phone" type="tel" autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="c-address">Address</label>
+            <input id="c-address" formControlName="address" autocomplete="street-address" />
+          </div>
+          <div class="field">
+            <label for="c-city">City</label>
+            <input id="c-city" formControlName="city" autocomplete="address-level2" />
+          </div>
+          <div class="field">
+            <label for="c-notes">Notes (optional)</label>
+            <textarea id="c-notes" formControlName="notes" rows="3"></textarea>
+          </div>
+          @if (form.invalid && form.touched) {
+            <p class="error">Please fill in all required fields.</p>
+          }
+          @if (error()) {
+            <p class="error">{{ error() }}</p>
+          }
+          <button type="submit" class="btn btn--primary btn--block" [disabled]="submitting()">
+            {{ submitting() ? 'Placing order…' : 'Place order' }}
+          </button>
+        </form>
+      </div>
+    }
+  </div>
+</section>

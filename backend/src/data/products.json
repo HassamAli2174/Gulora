@@ -1,0 +1,109 @@
+[
+  {
+    "id": "p-herbal-shampoo",
+    "slug": "herbal-shampoo",
+    "name": "Herbal Shampoo",
+    "subtitle": "With 25+ herbs",
+    "categoryId": "hair-care",
+    "shortDescription": "A gentle, deeply nourishing cleanser crafted with more than 25 herbs.",
+    "description": "Our signature Herbal Shampoo blends more than 25 time-honoured herbs, led by amla, reetha and shikakai, to cleanse your scalp gently while strengthening roots. It leaves hair soft, shiny and full of life, without stripping its natural oils.",
+    "images": [
+      "/uploads/products/shampoo.jpeg",
+      "/uploads/products/tester-20ml-shampoo.jpeg"
+    ],
+    "badges": ["Bestseller", "25+ Herbs"],
+    "benefits": [
+      { "icon": "leaf", "label": "Natural & gentle" },
+      { "icon": "root", "label": "Strengthens roots" },
+      { "icon": "sparkle", "label": "Adds shine & softness" },
+      { "icon": "drop", "label": "Nourishes deeply" }
+    ],
+    "ingredients": ["Amla", "Reetha", "Shikakai", "& 20+ more herbs"],
+    "howToUse": "Shake well. Apply to wet hair and massage gently into the scalp. Leave for 2–3 minutes, then rinse thoroughly. Use 2–3 times a week for best results.",
+    "featured": true,
+    "active": true,
+    "variants": [
+      {
+        "id": "v-shampoo-500",
+        "sku": "GUL-SHP-500",
+        "label": "500 ml",
+        "price": 0,
+        "stock": 0,
+        "image": "/uploads/products/shampoo.jpeg"
+      },
+      {
+        "id": "v-shampoo-20",
+        "sku": "GUL-SHP-020",
+        "label": "20 ml Tester",
+        "price": 0,
+        "stock": 0,
+        "image": "/uploads/products/tester-20ml-shampoo.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "p-skin-care-serum",
+    "slug": "skin-care-serum",
+    "name": "Skin Care Serum",
+    "subtitle": "Nourish. Hydrate. Glow.",
+    "categoryId": "skin-care",
+    "shortDescription": "A silky daily serum that nourishes, hydrates and restores your natural glow.",
+    "description": "Our Skin Care Serum melts into the skin to deliver lasting hydration and nourishment. Light enough for everyday use, it leaves your complexion soft, supple and naturally radiant.",
+    "images": [
+      "/uploads/products/skincareserum.jpeg",
+      "/uploads/products/serum.jpeg"
+    ],
+    "badges": ["New"],
+    "benefits": [
+      { "icon": "leaf", "label": "Nourishes skin" },
+      { "icon": "drop", "label": "Deep hydration" },
+      { "icon": "sparkle", "label": "Natural glow" },
+      { "icon": "hand", "label": "Light, non-greasy feel" }
+    ],
+    "ingredients": [],
+    "howToUse": "Cleanse your face and pat dry. Warm a small amount between your fingertips and press gently onto face and neck. Use morning and night.",
+    "featured": true,
+    "active": true,
+    "variants": [
+      {
+        "id": "v-serum-30",
+        "sku": "GUL-SER-030",
+        "label": "30 ml",
+        "price": 0,
+        "stock": 0,
+        "image": "/uploads/products/skincareserum.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "p-herbal-soap",
+    "slug": "herbal-soap",
+    "name": "Handmade Herbal Soap",
+    "subtitle": "Small-batch botanical bar",
+    "categoryId": "bath-body",
+    "shortDescription": "A richly textured, hand-poured soap bar packed with herbs for a gentle cleanse.",
+    "description": "Each bar is hand-poured, pressed with our leaf motif and slowly cured in small batches. The natural herbal texture offers a gentle exfoliation while leaving skin clean, soft and comfortable.",
+    "images": ["/uploads/products/soaps.jpeg"],
+    "badges": ["Handmade"],
+    "benefits": [
+      { "icon": "hand", "label": "Handmade in small batches" },
+      { "icon": "leaf", "label": "Herbal & gentle" },
+      { "icon": "sparkle", "label": "Mild exfoliation" },
+      { "icon": "heart", "label": "Kind to skin" }
+    ],
+    "ingredients": [],
+    "howToUse": "Lather between wet hands or on a loofah, massage over damp skin and rinse. Keep the bar dry between uses to make it last longer.",
+    "featured": true,
+    "active": true,
+    "variants": [
+      {
+        "id": "v-soap-bar",
+        "sku": "GUL-SOP-001",
+        "label": "Single bar",
+        "price": 0,
+        "stock": 0,
+        "image": "/uploads/products/soaps.jpeg"
+      }
+    ]
+  }
+]
