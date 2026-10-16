@@ -2,12 +2,14 @@ import { HttpParams } from '@angular/common/http';
 // The backend's catalogue files are the single source of truth for products.
 import categoriesData from '../../../../backend/src/data/categories.json';
 import productsData from '../../../../backend/src/data/products.json';
+import reviewsData from '../../../../backend/src/data/reviews.json';
 import { LocalApiHandler } from '../core/api';
-import { Category, Product } from '../core/models/catalog.model';
+import { Category, Product, Review } from '../core/models/catalog.model';
 import { DEFAULT_SETTINGS, SiteSettings } from '../core/models/settings.model';
 
 const categories = [...(categoriesData as Category[])].sort((a, b) => a.sortOrder - b.sortOrder);
 export const products = (productsData as Product[]).filter((p) => p.active);
+const reviews = reviewsData as Review[];
 
 const env: Record<string, string | undefined> =
   (globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env ?? {};
@@ -40,6 +42,13 @@ export const localApi: LocalApiHandler = (path: string, params: HttpParams) => {
       (p) =>
         (!category || p.categoryId === category) &&
         (featured === null || p.featured === (featured === 'true')),
+    );
+  }
+  if (path === '/reviews') {
+    const product = params.get('product');
+    const featured = params.get('featured');
+    return reviews.filter(
+      (r) => (!product || r.productId === product) && (featured === null || r.featured === (featured === 'true')),
     );
   }
   const slug = /^\/products\/([^/]+)$/.exec(path)?.[1];

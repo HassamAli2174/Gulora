@@ -33,6 +33,7 @@ export interface Product {
   shortDescription: string;
   description: string;
   images: string[];
+  videos: string[];
   badges: string[];
   benefits: ProductBenefit[];
   ingredients: string[];
@@ -40,6 +41,17 @@ export interface Product {
   featured: boolean;
   active: boolean;
   variants: ProductVariant[];
+}
+
+/** A real customer review, with the original WhatsApp screenshot as proof. */
+export interface Review {
+  id: string;
+  productId: string;
+  quote: string;
+  highlight: string;
+  rating?: number;
+  screenshot?: string;
+  featured: boolean;
 }
 
 export interface OrderItemInput {

@@ -7,10 +7,11 @@ import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { Icon, IconName } from '../../shared/icon/icon';
 import { ProductCard } from '../../shared/product-card/product-card';
 import { ResponsiveImg } from '../../shared/responsive-img';
+import { Reviews } from '../../shared/reviews/reviews';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, Icon, ProductCard, ResponsiveImg],
+  imports: [RouterLink, Icon, ProductCard, ResponsiveImg, Reviews],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,6 +26,10 @@ export class Home {
   protected readonly categories = toSignal(this.catalog.getCategories().pipe(catchError(() => of([]))), {
     initialValue: [],
   });
+  protected readonly reviews = toSignal(
+    this.catalog.getReviews({ featured: true }).pipe(catchError(() => of([]))),
+    { initialValue: [] },
+  );
   protected readonly categoryName = computed(() => {
     const map = new Map(this.categories().map((c) => [c.id, c.name]));
     return (id: string) => map.get(id) ?? '';

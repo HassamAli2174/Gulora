@@ -1,0 +1,51 @@
+[
+  {
+    "id": "r1",
+    "productId": "p-herbal-shampoo",
+    "quote": "5/5. I love how it smells and now I even see little baby hairs. I would 100 percent recommend it.",
+    "highlight": "New baby hair",
+    "rating": 5,
+    "screenshot": "/media/reviews/review-1.jpeg",
+    "featured": true
+  },
+  {
+    "id": "r2",
+    "productId": "p-herbal-shampoo",
+    "quote": "I have been using the shampoo for 2 months now and it is working wonderful. My conditioner finished, but your shampoo was so amazing that my hair did not get dry. My hair is very smooth and shiny from root to tip, and I can feel the life and the thickness in my hair coming back. Thank you so much.",
+    "highlight": "Smooth & shiny",
+    "screenshot": "/media/reviews/review-2.jpeg",
+    "featured": true
+  },
+  {
+    "id": "r3",
+    "productId": "p-herbal-shampoo",
+    "quote": "My previous order has shown wonderful and magical results. My hair fall has reduced and the growth of hair has improved. I recommend it 100%, fully reliable. I want to order 2 more bottles of 500 ml.",
+    "highlight": "Less hair fall",
+    "screenshot": "/media/reviews/review-3.jpeg",
+    "featured": true
+  },
+  {
+    "id": "r4",
+    "productId": "p-herbal-shampoo",
+    "quote": "Someone recommended your shampoo. I have been using it and I found it really good. My hair has become smooth. Thank you.",
+    "highlight": "Smoother hair",
+    "screenshot": "/media/reviews/review-4.jpeg",
+    "featured": false
+  },
+  {
+    "id": "r5",
+    "productId": "p-herbal-shampoo",
+    "quote": "I have been using the herbal shampoo for 2 weeks and it has made my hair soft. Really satisfied with the results.",
+    "highlight": "Softer in 2 weeks",
+    "screenshot": "/media/reviews/review-5.jpeg",
+    "featured": false
+  },
+  {
+    "id": "r6",
+    "productId": "p-herbal-shampoo",
+    "quote": "Loving Gulora Shampoo! My hair feels much healthier, the texture is better and I can see new baby hair growth. Really excellent product.",
+    "highlight": "Healthier texture",
+    "screenshot": "/media/reviews/review-6.jpeg",
+    "featured": true
+  }
+]

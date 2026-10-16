@@ -1,0 +1,139 @@
+:host {
+  display: block;
+}
+
+.reviews {
+  columns: 3 300px;
+  column-gap: 20px;
+}
+
+.review {
+  break-inside: avoid;
+  margin: 0 0 20px;
+  padding: 26px 26px 22px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+
+  blockquote {
+    margin: 16px 0 20px;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1.45;
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+}
+
+.review__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: #d9a441;
+
+  app-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .is-off {
+    opacity: 0.25;
+  }
+}
+
+.review__source {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  app-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--color-whatsapp);
+  }
+}
+
+.review__proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  app-icon {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* ---------- Lightbox ---------- */
+.lightbox {
+  width: min(760px, 94vw);
+  max-height: 92vh;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-md);
+
+  &::backdrop {
+    background: rgba(10, 8, 8, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  &[open] {
+    animation: fade-up 0.35s var(--ease);
+  }
+}
+
+.lightbox__inner {
+  position: relative;
+  padding: 18px;
+
+  img {
+    width: 100%;
+    border-radius: var(--radius-md);
+  }
+
+  p {
+    margin: 12px 4px 2px;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  z-index: 1;
+}

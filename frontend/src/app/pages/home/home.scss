@@ -272,6 +272,47 @@ em {
   color: var(--color-primary) !important;
 }
 
+/* ---------- Video ---------- */
+.video-frame {
+  justify-self: center;
+  width: min(100%, 380px);
+  aspect-ratio: 512 / 864;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 8px solid var(--color-surface);
+  box-shadow: var(--shadow-md);
+  background: var(--color-bg-alt);
+
+  video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.ticks {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: grid;
+  gap: 12px;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--color-text-muted);
+  }
+
+  app-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    color: var(--color-herb);
+  }
+}
+
 /* ---------- CTA ---------- */
 .cta {
   background: var(--color-ink);

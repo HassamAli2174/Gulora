@@ -19,6 +19,8 @@ export interface PolicyPage {
   intro: string;
   updated: string;
   sections: PolicySection[];
+  /** Optional photo shown on the page (a file in the media folder). */
+  image?: { src: string; alt: string; caption: string };
 }
 
 export const FAQ: FaqItem[] = [
@@ -84,6 +86,11 @@ export const SHIPPING_RETURNS: PolicyPage = {
   title: 'Shipping & Returns',
   intro: 'Everything you need to know about getting your Gulora order, and what to do if something is not right.',
   updated: 'October 2026',
+  image: {
+    src: '/media/gallery/parcel-dispatch-islamabad.jpeg',
+    alt: 'A Gulora order securely packed in a courier bag with a fragile sticker',
+    caption: 'Every order is securely packed and marked fragile before it leaves us.',
+  },
   sections: [
     {
       heading: 'Placing and confirming your order',

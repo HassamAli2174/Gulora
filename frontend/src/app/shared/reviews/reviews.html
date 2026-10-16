@@ -1,0 +1,37 @@
+<div class="reviews">
+  @for (review of reviews(); track review.id) {
+    <figure class="review">
+      <div class="review__top">
+        <span class="badge">{{ review.highlight }}</span>
+        @if (review.rating) {
+          <span class="stars" [attr.aria-label]="review.rating + ' out of 5 stars'">
+            @for (s of [1, 2, 3, 4, 5]; track s) {
+              <app-icon name="star" [class.is-off]="s > review.rating" />
+            }
+          </span>
+        }
+      </div>
+      <blockquote>“{{ review.quote }}”</blockquote>
+      <figcaption>
+        <span class="review__source"><app-icon name="whatsapp" /> Verified WhatsApp customer</span>
+        @if (review.screenshot) {
+          <button type="button" class="review__proof" (click)="open(review)">
+            <app-icon name="chat" /> View message
+          </button>
+        }
+      </figcaption>
+    </figure>
+  }
+</div>
+
+<dialog #dialog class="lightbox" (click)="onDialogClick($event)" (close)="active.set(null)" aria-label="Customer message">
+  @if (active(); as review) {
+    <div class="lightbox__inner">
+      <button type="button" class="icon-btn lightbox__close" (click)="close()" aria-label="Close">
+        <app-icon name="close" />
+      </button>
+      <img [appImg]="review.screenshot" sizes="(max-width: 760px) 92vw, 720px" alt="Original WhatsApp message from a Gulora customer" />
+      <p>The original message, shared with the customer's details hidden.</p>
+    </div>
+  }
+</dialog>

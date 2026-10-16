@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { catchError, map, of, startWith, switchMap } from 'rxjs';
+import { catchError, distinctUntilChanged, map, of, startWith, switchMap } from 'rxjs';
 import { Product } from '../../core/models/catalog.model';
 import { CartService } from '../../core/services/cart.service';
 import { CatalogService } from '../../core/services/catalog.service';
@@ -20,13 +20,14 @@ import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { Icon } from '../../shared/icon/icon';
 import { PricePipe } from '../../shared/price.pipe';
 import { ProductCard } from '../../shared/product-card/product-card';
-import { ResponsiveImg, ogImageUrl, optimizedUrl } from '../../shared/responsive-img';
+import { ResponsiveImg, ogImageUrl, optimizedUrl, videoPosterUrl } from '../../shared/responsive-img';
+import { Reviews } from '../../shared/reviews/reviews';
 
 type Load = { status: 'loading' } | { status: 'not-found' } | { status: 'ready'; product: Product };
 
 @Component({
   selector: 'app-product-detail',
-  imports: [RouterLink, Icon, PricePipe, ProductCard, ResponsiveImg],
+  imports: [RouterLink, Icon, PricePipe, ProductCard, ResponsiveImg, Reviews],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -62,6 +63,7 @@ export class ProductDetail {
   protected readonly variantId = signal<string | null>(null);
   protected readonly quantity = signal(1);
   protected readonly activeImage = signal<string | null>(null);
+  protected readonly activeVideo = signal<string | null>(null);
   protected readonly added = signal(false);
 
   protected readonly variant = computed(() => {
@@ -73,6 +75,16 @@ export class ProductDetail {
     const p = this.product();
     return p ? this.whatsapp.productLink(p, this.variant() ?? undefined, this.quantity()) : '';
   });
+
+  protected readonly reviews = toSignal(
+    toObservable(computed(() => this.product()?.id)).pipe(
+      distinctUntilChanged(),
+      switchMap((productId) =>
+        productId ? this.catalog.getReviews({ productId }).pipe(catchError(() => of([]))) : of([]),
+      ),
+    ),
+    { initialValue: [] },
+  );
 
   private readonly allProducts = toSignal(this.catalog.getProducts().pipe(catchError(() => of([]))), {
     initialValue: [],
@@ -92,6 +104,7 @@ export class ProductDetail {
       const p = this.product();
       this.variantId.set(null);
       this.activeImage.set(null);
+      this.activeVideo.set(null);
       this.quantity.set(1);
       if (p) {
         const path = `/product/${p.slug}`;
@@ -138,6 +151,16 @@ export class ProductDetail {
   protected selectVariant(id: string) {
     this.variantId.set(id);
     this.activeImage.set(null);
+    this.activeVideo.set(null);
+  }
+
+  protected showImage(url: string) {
+    this.activeImage.set(url);
+    this.activeVideo.set(null);
+  }
+
+  protected poster(video: string) {
+    return videoPosterUrl(video);
   }
 
   protected changeQty(delta: number) {

@@ -37,3 +37,17 @@ catalogRouter.get('/products/:slug', async (req, res, next) => {
     next(err);
   }
 });
+
+catalogRouter.get('/reviews', async (req, res, next) => {
+  try {
+    const { product, featured } = req.query;
+    res.json(
+      await catalogRepository.getReviews({
+        productId: typeof product === 'string' && product ? product : undefined,
+        featured: featured === undefined ? undefined : featured === 'true',
+      }),
+    );
+  } catch (err) {
+    next(err);
+  }
+});

@@ -1,15 +1,12 @@
 // Runs after the Angular build for static hosting (Netlify):
-//  - copies product images (originals + optimised) into the site
 //  - writes sitemap.xml and robots.txt
-import { cpSync, readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'frontend', 'dist', 'frontend', 'browser');
 const siteUrl = (process.env.SITE_URL || process.env.URL || 'https://gulora.netlify.app').replace(/\/$/, '');
-
-cpSync(path.join(root, 'backend', 'uploads'), path.join(dist, 'uploads'), { recursive: true });
 
 const products = JSON.parse(readFileSync(path.join(root, 'backend', 'src', 'data', 'products.json'), 'utf8'));
 const today = new Date().toISOString().slice(0, 10);
@@ -34,4 +31,4 @@ ${pages
 writeFileSync(path.join(dist, 'sitemap.xml'), sitemap);
 writeFileSync(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /cart\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
 
-console.log(`[postbuild] images copied, sitemap.xml written for ${siteUrl} (${pages.length} pages)`);
+console.log(`[postbuild] sitemap.xml written for ${siteUrl} (${pages.length} pages)`);

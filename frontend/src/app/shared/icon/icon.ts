@@ -20,7 +20,10 @@ export type IconName =
   | 'plus'
   | 'minus'
   | 'trash'
-  | 'check';
+  | 'check'
+  | 'star'
+  | 'play'
+  | 'chat';
 
 /** Lightweight inline SVG icon set: no icon font, inherits currentColor. */
 @Component({
@@ -97,6 +100,15 @@ export type IconName =
             }
             @case ('check') {
               <path d="M5 12.5l4.5 4.5L19 7.5"/>
+            }
+            @case ('star') {
+              <path fill="currentColor" d="M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.8L12 16.9l-5.25 2.7 1-5.8L3.5 9.7l5.9-.9z"/>
+            }
+            @case ('play') {
+              <path fill="currentColor" d="M8 5.5v13l11-6.5z"/>
+            }
+            @case ('chat') {
+              <path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>
             }
           }
         </svg>

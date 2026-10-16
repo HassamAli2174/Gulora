@@ -7,6 +7,7 @@ by switching one setting.
 
 ```
 Gulora/
+├─ media/               ← ALL photos & videos (originals): brand/, products/, reviews/, gallery/, videos/
 ├─ frontend/            Angular app
 │  └─ src/
 │     ├─ styles/_themes.scss   ← all colours (brand themes × light/dark)
@@ -18,7 +19,6 @@ Gulora/
 └─ backend/             Express API
    ├─ .env               ← your settings (WhatsApp number, store mode...)
    ├─ src/data/          ← products.json & categories.json (edit to change products)
-   ├─ uploads/products/  ← product images
    └─ src/repositories/  ← storage layer (swap JSON for a database later)
 ```
 
@@ -38,7 +38,7 @@ Node app on port 3000.
 
 `netlify.toml` configures everything:
 
-- The Angular site is built and served as static files, and product images are copied in as `/uploads/...`.
+- The Angular site is built and served as static files, including optimized photos and videos under `/media/...`.
 - The Express API runs as a Netlify Function (`netlify/functions/api.ts`) at `/api/*`.
 
 To deploy:
@@ -60,7 +60,8 @@ The API is also a normal Node server (`npm run build && npm start`), so it can m
 | I want to…                   | Do this                                                                 |
 | ---------------------------- | ----------------------------------------------------------------------- |
 | Set the WhatsApp number      | `backend/.env` → `WHATSAPP_NUMBER=923001234567` (digits only, with country code) |
-| Add or edit a product        | Edit `backend/src/data/products.json` and put images in `backend/uploads/products/` |
+| Add or edit a product        | Put photos in `media/products/` (videos in `media/videos/`), then edit `backend/src/data/products.json` |
+| Add a customer review        | Put the screenshot in `media/reviews/` and add an entry to `backend/src/data/reviews.json` |
 | Show prices                  | Fill in `price` for each variant, then set `SHOW_PRICES=true`            |
 | Change the brand colours     | Edit `frontend/src/styles/_themes.scss`                                  |
 | Switch theme                 | `DEFAULT_THEME=blush` or `herbal` in `backend/.env`                      |
@@ -71,9 +72,11 @@ The API is also a normal Node server (`npm run build && npm start`), so it can m
 
 ## Images, SEO and link previews
 
-- **Images:** put original photos in `backend/uploads/products/`. `npm run images` runs automatically before dev and
-  every build, and creates WebP versions (480/800/1200 px) plus 1200×630 share images. The site serves the right size
-  for each screen. Generated files are not committed.
+- **Media:** every photo and video lives in `media/`. `npm run media` runs automatically before dev and every build:
+  photos get WebP versions (480/800/1200 px), product photos also get 1200×630 share images, and videos are
+  compressed for the web with a thumbnail. The output goes to `frontend/public/media/` and is not committed.
+- **Privacy:** hide phone numbers, names, addresses and QR codes before adding a screenshot or photo.
+  `media/private-originals/` is never committed or published.
 - **Prerendering:** every page (home, shop, each product, about, contact, FAQ, policies) is rendered to static HTML at
   build time (`frontend/src/app/app.routes.server.ts`). WhatsApp, Instagram and Facebook link previews, and Google,
   see real content, titles and images. New products are prerendered automatically.
@@ -107,7 +110,7 @@ Suggested next steps for a full store:
 1. **Database.** Implement `CatalogRepository` / `OrderRepository` with MongoDB or PostgreSQL. The routes don't change.
 2. **Payments.** Add a payment step in `pages/cart` and a webhook route in the backend (for example Stripe, or
    Safepay/JazzCash/Easypaisa in Pakistan).
-3. **Admin panel.** Protected routes to manage products, stock and orders, plus image uploads to `uploads/`.
+3. **Admin panel.** Protected routes to manage products, stock and orders, plus uploads to `media/`.
 4. **Stock.** The `stock` field on each variant is already in the data model.
 
 ## API
@@ -119,4 +122,4 @@ Suggested next steps for a full store:
 | GET    | `/api/products`          | `?category=hair-care`, `?featured=true` |
 | GET    | `/api/products/:slug`    |                                         |
 | POST   | `/api/orders`            | Store mode only                         |
-| GET    | `/uploads/...`           | Product images                          |
+| GET    | `/api/reviews`           | `?product=<id>`, `?featured=true`       |

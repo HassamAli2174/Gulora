@@ -2,13 +2,14 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { PRIVACY, SHIPPING_RETURNS } from '../../content/help-content';
 import { Icon } from '../../shared/icon/icon';
+import { ResponsiveImg } from '../../shared/responsive-img';
 
 const PAGES = { shipping: SHIPPING_RETURNS, privacy: PRIVACY };
 
 /** Renders a policy page from help-content.ts. The page is chosen by route data. */
 @Component({
   selector: 'app-policy',
-  imports: [Icon],
+  imports: [Icon, ResponsiveImg],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './policy.scss',
   template: `
@@ -23,10 +24,16 @@ const PAGES = { shipping: SHIPPING_RETURNS, privacy: PRIVACY };
     <section class="section">
       <div class="container narrow policy">
         <p class="updated">Last updated: {{ content().updated }}</p>
-        @for (section of content().sections; track section.heading) {
+        @for (section of content().sections; track section.heading; let i = $index) {
           <h2>{{ section.heading }}</h2>
           @for (paragraph of section.paragraphs; track $index) {
             <p>{{ paragraph }}</p>
+          }
+          @if (i === 1 && content().image; as photo) {
+            <figure class="policy__photo">
+              <img [appImg]="photo.src" sizes="(max-width: 800px) 92vw, 760px" [alt]="photo.alt" loading="lazy" />
+              <figcaption>{{ photo.caption }}</figcaption>
+            </figure>
           }
         }
 

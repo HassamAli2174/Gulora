@@ -22,19 +22,42 @@
             <!-- Gallery -->
             <div class="gallery">
               <div class="gallery__main">
-                <img [appImg]="image()" sizes="(max-width: 860px) 95vw, 620px" [alt]="p.name" fetchpriority="high" />
+                @if (activeVideo(); as video) {
+                  <video
+                    [src]="video"
+                    [poster]="poster(video)"
+                    autoplay
+                    controls
+                    playsinline
+                    [attr.aria-label]="p.name + ' video'"
+                  ></video>
+                } @else {
+                  <img [appImg]="image()" sizes="(max-width: 860px) 95vw, 620px" [alt]="p.name" fetchpriority="high" />
+                }
               </div>
-              @if (p.images.length > 1) {
+              @if (p.images.length + p.videos.length > 1) {
                 <div class="gallery__thumbs">
                   @for (img of p.images; track img) {
                     <button
                       type="button"
                       class="gallery__thumb"
-                      [class.is-active]="img === image()"
-                      (click)="activeImage.set(img)"
+                      [class.is-active]="!activeVideo() && img === image()"
+                      (click)="showImage(img)"
                       [attr.aria-label]="'Show image ' + ($index + 1)"
                     >
                       <img [appImg]="img" sizes="84px" alt="" loading="lazy" />
+                    </button>
+                  }
+                  @for (video of p.videos; track video) {
+                    <button
+                      type="button"
+                      class="gallery__thumb gallery__thumb--video"
+                      [class.is-active]="video === activeVideo()"
+                      (click)="activeVideo.set(video)"
+                      aria-label="Play video"
+                    >
+                      <img [src]="poster(video)" alt="" loading="lazy" />
+                      <span class="gallery__play"><app-icon name="play" /></span>
                     </button>
                   }
                 </div>
@@ -141,6 +164,19 @@
           </div>
         </div>
       </section>
+
+      @if (reviews().length) {
+        <section class="section" id="reviews">
+          <div class="container">
+            <div class="section-head">
+              <span class="eyebrow">Customer Reviews</span>
+              <h2>What our customers say</h2>
+              <p>{{ reviews().length }} real messages from customers using {{ p.name }}.</p>
+            </div>
+            <app-reviews [reviews]="reviews()" />
+          </div>
+        </section>
+      }
 
       @if (related().length) {
         <section class="section section--alt">

@@ -18,10 +18,10 @@
 
     <div class="hero__visual fade-up" style="animation-delay: 0.15s">
       <div class="hero__arch">
-        <img appImg="/uploads/products/shampoo.jpeg" sizes="(max-width: 820px) 80vw, 460px" alt="Gulora Herbal Shampoo with 25+ herbs" fetchpriority="high" />
+        <img appImg="/media/products/shampoo.jpeg" sizes="(max-width: 820px) 80vw, 460px" alt="Gulora Herbal Shampoo with 25+ herbs" fetchpriority="high" />
       </div>
       <div class="hero__round">
-        <img appImg="/uploads/products/skincareserum.jpeg" sizes="200px" alt="Gulora Skin Care Serum" />
+        <img appImg="/media/products/skincareserum.jpeg" sizes="200px" alt="Gulora Skin Care Serum" />
       </div>
       <span class="hero__spark" aria-hidden="true">✦</span>
     </div>
@@ -74,6 +74,56 @@
   </div>
 </section>
 
+<!-- VIDEO -->
+<section class="section section--alt">
+  <div class="container split">
+    <div class="video-frame">
+      <video
+        src="/media/videos/herbal-shampoo.mp4"
+        poster="/media/videos/herbal-shampoo-poster.webp"
+        autoplay
+        muted
+        loop
+        playsinline
+        controls
+        preload="metadata"
+        aria-label="Gulora Herbal Shampoo in use"
+      ></video>
+    </div>
+    <div class="split__copy">
+      <span class="eyebrow">See It In Action</span>
+      <h2>A rich, herbal <em>lather</em></h2>
+      <p>
+        Amla, reetha and shikakai, blended with more than 20 other herbs. Just shake, massage into the scalp and let the
+        herbs do their work.
+      </p>
+      <ul class="ticks">
+        <li><app-icon name="check" /> Cleanses gently, without stripping natural oils</li>
+        <li><app-icon name="check" /> Leaves hair soft, shiny and full of life</li>
+        <li><app-icon name="check" /> Available in 500 ml and a 20 ml tester</li>
+      </ul>
+      <a routerLink="/product/herbal-shampoo" class="btn btn--ink">Discover the shampoo <app-icon name="arrow-right" /></a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+@if (reviews().length) {
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Real Results</span>
+        <h2>Loved by our customers</h2>
+        <p>Real messages from Gulora customers on WhatsApp. Tap “View message” to see the original.</p>
+      </div>
+      <app-reviews [reviews]="reviews()" />
+      <div class="center">
+        <a routerLink="/product/herbal-shampoo" fragment="reviews" class="btn btn--outline">Read all reviews</a>
+      </div>
+    </div>
+  </section>
+}
+
 <!-- CATEGORIES -->
 @if (categories().length) {
   <section class="section section--alt">
@@ -115,7 +165,7 @@
 <section class="section">
   <div class="container split">
     <div class="split__media">
-      <img appImg="/uploads/products/soaps.jpeg" sizes="(max-width: 820px) 90vw, 560px" alt="Handmade Gulora herbal soaps on a wooden tray" loading="lazy" />
+      <img appImg="/media/products/soaps.jpeg" sizes="(max-width: 820px) 90vw, 560px" alt="Handmade Gulora herbal soaps on a wooden tray" loading="lazy" />
     </div>
     <div class="split__copy">
       <span class="eyebrow">Our Philosophy</span>
@@ -134,7 +184,7 @@
 <section class="section section--alt">
   <div class="container split split--reverse">
     <div class="split__media split__media--arch">
-      <img appImg="/uploads/products/tester-20ml-shampoo.jpeg" sizes="(max-width: 820px) 90vw, 420px" alt="Gulora Herbal Shampoo 20 ml tester" loading="lazy" />
+      <img appImg="/media/products/tester-20ml-shampoo.jpeg" sizes="(max-width: 820px) 90vw, 420px" alt="Gulora Herbal Shampoo 20 ml tester" loading="lazy" />
     </div>
     <div class="split__copy">
       <span class="eyebrow">Try Before You Commit</span>
